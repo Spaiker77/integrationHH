@@ -27,9 +27,9 @@ class Vacancy:
     employment: Dict
 
     def __post_init__(self):
-        self._validate()
+        self.__validate()
 
-    def _validate(self) -> None:
+    def __validate(self) -> None:
         """Приватный метод валидации данных"""
         if not isinstance(self.name, str) or not self.name:
             raise ValueError("Название вакансии обязательно")
@@ -39,10 +39,16 @@ class Vacancy:
             raise ValueError("Некорректный URL")
 
     def __lt__(self, other: "Vacancy") -> bool:
-        """Сравнение вакансий по зарплате"""
+        """Сравнение вакансий по зарплате (меньше)"""
         self_salary = self.salary.get("from") if self.salary else 0
         other_salary = other.salary.get("from") if other.salary else 0
         return self_salary < other_salary
+
+    def __gt__(self, other: "Vacancy") -> bool:
+        """Сравнение вакансий по зарплате (больше)"""
+        self_salary = self.salary.get("from") if self.salary else 0
+        other_salary = other.salary.get("from") if other.salary else 0
+        return self_salary > other_salary
 
     @classmethod
     def cast_to_object_list(cls, vacancies_json: List[Dict]) -> List["Vacancy"]:

@@ -6,6 +6,11 @@ class Parser(ABC):
     """Абстрактный класс для работы с API платформ с вакансиями"""
 
     @abstractmethod
+    def _connect(self) -> None:
+        """Приватный метод для проверки подключения к API"""
+        pass
+
+    @abstractmethod
     def load_vacancies(self, keyword: str) -> None:
         """Загрузка вакансий по ключевому слову"""
         pass

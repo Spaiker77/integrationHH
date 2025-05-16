@@ -28,7 +28,8 @@ def test_add_vacancy(temp_saver):
     vacancy = Vacancy(**vacancy_data)
     temp_saver.add_vacancy(vacancy)
 
-    with open(temp_saver._filename, "r") as f:
+    # Используем доступ к файлу через путь, переданный в конструктор
+    with open(temp_saver._JSONSaver__filename, "r") as f:
         data = json.load(f)
         assert len(data["items"]) == 1
         assert data["items"][0]["name"] == "Test"
@@ -49,6 +50,7 @@ def test_delete_vacancy(temp_saver):
     temp_saver.add_vacancy(vacancy)
     temp_saver.delete_vacancy(vacancy)
 
-    with open(temp_saver._filename, "r") as f:
+    # Используем доступ к файлу через путь, переданный в конструктор
+    with open(temp_saver._JSONSaver__filename, "r") as f:
         data = json.load(f)
         assert len(data["items"]) == 0
